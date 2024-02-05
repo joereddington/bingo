@@ -4,9 +4,10 @@ import sys
 def generate_bingo_card(words, num_cards=1):
     # Define the LaTeX header as a separate string
     latex_header = r"""
-\documentclass{article}
+\documentclass{report}
 \usepackage[margin=1in]{geometry}
 \usepackage{array}
+\usepackage{tabularx}
 \begin{document}
 """
 
@@ -20,20 +21,24 @@ def generate_bingo_card(words, num_cards=1):
         if card_number > 1:
             latex_code += "\\newpage\n"  # Start a new page for each bingo card
 
+        latex_code += "\\huge\n"
+        latex_code += "\\chapter*{Badly spaced Bingo!}\n"
+        latex_code += "Cross off a square when the event happens. There are prizes for completing rows, columns, and the whole square"
+        latex_code += "\\begin{center}\n"
+        latex_code += "\\huge"
+        latex_code += "\\begin{tabularx}{\\textwidth}{|X|X|X|X|X|}"
+        latex_code += "\\hline\n"
 
-        for i, row in enumerate(card):
-            latex_code += "\\begin{center}\n"
-            latex_code += "\\begin{tabular}{|c|c|c|c|c|}\n"
-            latex_code += "\\hline\n"
+        for row in range(0,4):
 
-            for r in row:
-                latex_code += r + " & "
-            latex_code = latex_code[:-2]  # Remove the last "&" and space
+            for col in range(0,4): 
+                latex_code += words[row*5+col] + " & "
+            latex_code = latex_code[:-2]  # Remove the last "&" and spac
             latex_code += " \\\\\n"
             latex_code += "\\hline\n"
 
-            latex_code += "\\end{tabular}\n"
-            latex_code += "\\end{center}\n"
+        latex_code += "\\end{tabularx}\n"
+        latex_code += "\\end{center}\n"
 
     latex_code += "\\end{document}\n"
 
@@ -47,11 +52,11 @@ if __name__ == "__main__":
     num_cards = int(sys.argv[1])  # Number of bingo cards to generate
     output_file = sys.argv[2]  # Output file name
 
-    bingo_words = ["Word1", "Word2", "Word3", "Word4", "Word5",
-                   "Word6", "Word7", "Word8", "Word9", "Word10",
-                   "Word11", "Word12", "Word13", "Word14", "Word15",
-                   "Word16", "Word17", "Word18", "Word19", "Word20",
-                   "Word21", "Word22", "Word23", "Word24", "Word25"]
+    bingo_words = ["Someone is late", "Joe doesn't know the answer to the question", "A typo is found on a slide", "A deadline is extended", "One student replies to another's question",
+                   "Not a question more a comment", "A slide is skipped", "A student gives an example from their own experience", "The class point to a wall", "A link is shared in teams",
+                   "Lecture slides are different from uploaded slides", "Attendance is more than 60", "One student asks a question on behalf of another", "Some information is useful but off-topic", "Student phone rings",
+                   "Slide text is too small", "We'll talk about this later in the course", "A definition that might be on the exam", "Reference to a pop culture event before 2001", "Slide is 'funny' ",
+                   "Joe can't work a computer", "Class consulted on course structure", "Being a manager sounds hard", "Computer correctly locked at break", "Joe walks too far from the microphone"]
 
     bingo_cards_latex = generate_bingo_card(bingo_words, num_cards)
 

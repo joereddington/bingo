@@ -10,8 +10,8 @@ BINGO_WORDS := "Word1" "Word2" "Word3" "Word4" "Word5" "Word6" "Word7" "Word8" "
 
 all: bingo_cards.pdf
 
-bingo_cards.tex:
-	python3 generate.py 5 bingo_cards.tex
+bingo_cards.tex: generate.py
+	python3 generate.py 50 bingo_cards.tex
 
 bingo_cards.pdf: bingo_cards.tex
 	pdflatex bingo_cards.tex
