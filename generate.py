@@ -8,6 +8,7 @@ import random
 #    * Go and get the old events from previous git commits
 # (Might only be able to do one of the above) 
 # * Put the events into a separate text file 
+# Add '10 questions asked'
 
 def make_table(words, size_of_square=4):
     random.shuffle(words)
